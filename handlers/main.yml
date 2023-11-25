@@ -1,7 +1,10 @@
 ---
 # handlers file for vector-role
-- name: Start vector service
+# handlers для старта/рестарта сервиса Vector
+- name: Start Vector service
   become: true
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: vector
     state: restarted
+    enabled: true
+  when: ansible_connection == 'docker'
